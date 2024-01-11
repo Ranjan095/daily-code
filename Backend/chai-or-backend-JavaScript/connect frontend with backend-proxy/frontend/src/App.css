@@ -1,0 +1,24 @@
+#app-container {
+  display: flex;
+  justify-content: center;
+
+  h1 {
+    color: red;
+    background-color: yellow;
+  }
+
+}
+
+#user-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  grid-template-columns: repeat(3, 1fr);
+
+  div {
+    border: 1px solid slategrey;
+    margin: 5px;
+    padding: 5px;
+  }
+}

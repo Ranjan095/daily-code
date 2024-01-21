@@ -1,7 +1,16 @@
 import dotenv from "dotenv";
-
-import { connectDB } from "./db/db_connection.js";
-
 dotenv.config({ path: ".env" });
 
-connectDB();
+import { connectDB } from "./db/db_connection.js";
+import { app } from "./app.js";
+let PORT = process.env.PORT || 8080;
+
+connectDB()
+  .then((res) => {
+    app.listen(PORT, () => {
+      console.log(`app running on ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(`Database connection error: ${err}`);
+  });

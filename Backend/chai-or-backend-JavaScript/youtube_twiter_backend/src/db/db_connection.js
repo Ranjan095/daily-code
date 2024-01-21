@@ -6,8 +6,8 @@ export let connectDB = async () => {
     let connection_init = await mongoose.connect(
       `${process.env.MONGO_URI}/${DB_NAME}`
     );
-    console.log(`db has been connected to ${process.env.PORT}`);
-    console.log("DB_Host", connection_init.connection.host);
+    // console.log("DB_Host", connection_init.connection.host);
+    console.log("DB has been connected");
   } catch (error) {
     console.log("MongoDB connection error", error);
   }

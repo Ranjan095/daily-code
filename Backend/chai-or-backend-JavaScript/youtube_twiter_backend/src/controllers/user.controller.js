@@ -214,4 +214,130 @@ let refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
-export { userRegister, loginUser, logoutUser, refreshAccessToken };
+// for change current password;
+
+let changeCurrentPassword = asyncHandler(async (req, res) => {
+  let { oldPassword, newPassword, confirmPassword } = req.body;
+
+  if (!oldPassword || !newPassword || !confirmPassword) {
+    res.status(400).json({
+      error: "please provide oldpassword,newpassword and confirmPassword",
+    });
+  }
+
+  if (newPassword !== confirmPassword) {
+    res
+      .status(400)
+      .json({ error: "new-password and confirm-password is not matched" });
+  }
+
+  let user = await User.findById(req.user?._id);
+  let isOldPasswordCurrect = await user.isPasswordCorrect(oldPassword);
+  if (!isOldPasswordCurrect) {
+    res.status(400).json({ error: "invalid old-password" });
+  }
+  user.password = newPassword;
+  await user.save({ validateBeforeSave: false });
+
+  res.status(200).json({ message: "password changed successfully" });
+});
+
+// get current user
+let getCurrentUser = asyncHandler(async (req, res) => {
+  res
+    .status(200)
+    .send({ message: "current user fetched successfully", data: req.user });
+});
+
+// update email or fullName
+let updateUserEmailOrFullName = asyncHandler(async (req, res) => {
+  let { email, fullName } = req.body;
+  if (!email || !fullName) {
+    res.status(400).json({ message: "email or full name is required" });
+  }
+  let userId = req.user?._id;
+  let user = await User.findByIdAndUpdate(
+    userId,
+    // { email, fullName },
+    {
+      $set: {
+        fullName,
+        email,
+      },
+    },
+    { new: true }
+  ).select("-password");
+  await user.save();
+  res.status(200).json({
+    message: "email or full name has been updated successfully",
+    data: user,
+  });
+});
+
+// for update avatar
+let updateUserAvatar = asyncHandler(async (req, res) => {
+  let avatarFilePath = req.file?.path;
+  if (!avatarFilePath) {
+    res.status(400).json({
+      error: "Somthing went wrong while uploading avatar flle using multer",
+    });
+  }
+  let cloudinary = await uploadOnCloudinary(avatarFilePath, "avatar");
+  if (!cloudinary) {
+    res.status(400).json({
+      error: "Somthing went wrong while uploading avatar on cloudinary",
+    });
+  }
+  let user = await User.findByIdAndUpdate(
+    req.user?._id,
+    {
+      $set: {
+        avatar: cloudinary?.url,
+      },
+    },
+    { new: true }
+  ).select("-password");
+  res
+    .status(200)
+    .json({ message: "Avatar has been updated successfully", data: user });
+});
+
+// for update coverImage
+let updateUserCoverImage = asyncHandler(async (req, res) => {
+  let coverImageFilePath = req.file?.path;
+  if (!coverImageFilePath) {
+    res.status(400).json({
+      error: "Somthing went wrong while uploading coverImage flle using multer",
+    });
+  }
+  let cloudinary = await uploadOnCloudinary(coverImageFilePath, "coverImage");
+  if (!cloudinary) {
+    res.status(400).json({
+      error: "Somthing went wrong while uploading coverImage on cloudinary",
+    });
+  }
+  let user = await User.findByIdAndUpdate(
+    req.user?._id,
+    {
+      $set: {
+        coverImage: cloudinary?.url,
+      },
+    },
+    { new: true }
+  ).select("-password");
+  res
+    .status(200)
+    .json({ message: "coverImage has been updated successfully", data: user });
+});
+
+export {
+  userRegister,
+  loginUser,
+  logoutUser,
+  refreshAccessToken,
+  changeCurrentPassword,
+  getCurrentUser,
+  updateUserEmailOrFullName,
+  updateUserAvatar,
+  updateUserCoverImage,
+};

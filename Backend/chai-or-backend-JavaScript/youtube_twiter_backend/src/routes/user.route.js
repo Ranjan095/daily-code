@@ -1,8 +1,13 @@
 import { Router } from "express";
 import {
+  changeCurrentPassword,
+  getCurrentUser,
   loginUser,
   logoutUser,
   refreshAccessToken,
+  updateUserAvatar,
+  updateUserCoverImage,
+  updateUserEmailOrFullName,
   userRegister,
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -16,10 +21,30 @@ let uploadFileUsingMulter = upload.fields([
 
 let userRoute = Router();
 
-userRoute.post("/register", uploadFileUsingMulter, userRegister);
 // userRoute.route("/register").post(userRegister);
+userRoute.post("/register", uploadFileUsingMulter, userRegister);
 userRoute.post("/login", loginUser);
-userRoute.post("/logout",auth, logoutUser);
-userRoute.post("/refresh-token",refreshAccessToken)
+userRoute.post("/refresh-token", refreshAccessToken);
+
+// secured routes
+userRoute.post("/logout", auth, logoutUser);
+userRoute.post("/change-password", auth, changeCurrentPassword);
+userRoute.get("/get-current-user", auth, getCurrentUser);
+userRoute.patch("/update-email-fullname", auth, updateUserEmailOrFullName);
+
+// upload file on server using multer
+userRoute.patch(
+  "/update-user-avatar",
+  auth,
+  upload.single("avatar"),
+  updateUserAvatar
+);
+// upload file on server using multer
+userRoute.patch(
+  "/update-user-coverImage",
+  auth,
+  upload.single("coverImage"),
+  updateUserCoverImage
+);
 
 export { userRoute };

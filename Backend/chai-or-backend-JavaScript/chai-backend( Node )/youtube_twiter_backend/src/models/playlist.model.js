@@ -10,18 +10,18 @@ let playlistSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    video: [
+    videos: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Video",
       },
     ],
     owner: {
-      type: mongoose.Schema.types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
   },
-  { timeseries: true }
+  { timestamps: true }
 );
 
 export let Playlist = mongoose.model("Playlist", playlistSchema);

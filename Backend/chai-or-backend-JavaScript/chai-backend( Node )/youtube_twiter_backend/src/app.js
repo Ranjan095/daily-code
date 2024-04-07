@@ -19,8 +19,10 @@ app.use(cookieParser());
 import { userRoute } from "./routes/user.route.js";
 import { videoRoute } from "./routes/video.route.js";
 import { playlistRouter } from "./routes/playlist.route.js";
+import { subscriptionRoute } from "./routes/subscription.route.js";
 
 // all routes
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/video", videoRoute);
 app.use("/api/v1/playlist", playlistRouter);
+app.use("/api/v1/subscription", subscriptionRoute)

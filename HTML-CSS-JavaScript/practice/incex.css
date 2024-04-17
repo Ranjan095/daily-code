@@ -1,0 +1,48 @@
+#box {
+  width: 70px;
+  height: 70px;
+  background-image: url(https://media.istockphoto.com/id/1195743934/vector/cute-panda-character-vector-design.jpg?s=612x612&w=0&k=20&c=J3ht-bKADmsXvF6gFIleRtfJ6NGhXnfIsrwlsUF8w80=);
+  background-size: cover;
+  border: solid 2px;
+  background-position: center;
+  transition: transform 2s, background-color 0.5s, width 0.5s, height 0.5s;
+  transform: rotate(45deg);
+  /* transform: skew(20deg, 20deg); */
+  margin: 50px 0px 0px 50px;
+  display: inline-block;
+}
+#box:hover {
+  /* background-color: pink; */
+  width: 100px;
+  height: 100px;
+  /* transform: skew(360deg); */
+  transform: rotate(360deg);
+}
+
+.div-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; Adjust as needed */
+  height: 100vh;
+}
+
+#gpay {
+  height: 60px;
+  width: 60px;
+  background-color: brown;
+  border-radius: 50px;
+  transition: background-color 0.5s;
+  text-align: center;
+  line-height: 60px;
+}
+#gpay:hover {
+  background-color: #a52;
+}
+#gpay::before {
+  content: attr(data-content);
+}
+
+#gpay:hover::before {
+  content: "Paid";
+}

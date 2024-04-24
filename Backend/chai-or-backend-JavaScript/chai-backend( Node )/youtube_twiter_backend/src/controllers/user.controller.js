@@ -8,6 +8,7 @@ import {
 import { creaateAccessTokenOrRefreshToken } from "../utils/createToken.js";
 import jwt from "jsonwebtoken";
 
+
 // let userRegister = async (req, res) => {
 //   try {
 //    return res.status(200).json({ message: "Registration successful" });
@@ -350,6 +351,68 @@ let updateUserCoverImage = asyncHandler(async (req, res) => {
     .json({ message: "coverImage has been updated successfully", data: user });
 });
 
+let getUserChannelProfile = asyncHandler(async (req, res) => {
+  let { userName } = req.params;
+
+  if (!userName) {
+    res.status(404).json({
+      message: "Somthing went wrong while getting user channel profile",
+    });
+  }
+  let channelDetails = await User.aggregate([
+    {
+      $match: {
+        userName: userName,
+      },
+    },
+    {
+      $lookup: {
+        from: "subscriptions",
+        localField: "_id",
+        foreignField: "channel",
+        as: "subscribers",
+      },
+    },
+    {
+      $lookup: {
+        from: "subscriptions",
+        localField: "_id",
+        foreignField: "subscriber",
+        as: "subscribeTo",
+      },
+    },
+    {
+      $addFields: {
+        subscribers: {
+          $size: "$subscribers",
+        },
+        subscribeTo: {
+          $size: "$subscribeTo",
+        },
+        // isSubscribed: {
+        //   $cond: {
+        //     if: { $in: [req.user?._id, "$subscribers.subscriber"] },
+        //     then: true,
+        //     else: false,
+        //   },
+        // },
+      },
+    },
+    {
+      $project: {
+        fullName: 1,
+        email: 1,
+        avatar: 1,
+        userName: 1,
+        coverImage: 1,
+        subscribers: 1,
+        subscribeTo: 1,
+      },
+    },
+  ]);
+  res.status(200).send({ channelDetails });
+});
+
 export {
   userRegister,
   loginUser,
@@ -360,4 +423,5 @@ export {
   updateUserEmailOrFullName,
   updateUserAvatar,
   updateUserCoverImage,
+  getUserChannelProfile,
 };

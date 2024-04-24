@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   changeCurrentPassword,
   getCurrentUser,
+  getUserChannelProfile,
   loginUser,
   logoutUser,
   refreshAccessToken,
@@ -31,6 +32,7 @@ userRoute.post("/logout", auth, logoutUser);
 userRoute.post("/change-password", auth, changeCurrentPassword);
 userRoute.get("/get-current-user", auth, getCurrentUser);
 userRoute.patch("/update-email-fullname", auth, updateUserEmailOrFullName);
+userRoute.get("/channel-profile/:userName", auth, getUserChannelProfile);
 
 // upload file on server using multer
 userRoute.patch(
@@ -46,5 +48,6 @@ userRoute.patch(
   upload.single("coverImage"),
   updateUserCoverImage
 );
+
 
 export { userRoute };

@@ -11,10 +11,14 @@ let toggleSubscription = asyncHandler(async (req, res) => {
   }
 
   //check if channel is already subscribed
-  let isSubscribed = await Subscription.findOne({ channel: channelId });
+  let isSubscribed = await Subscription.findOne({
+    $and: [{ channel: channelId }, { subscriber: req.user?._id }],
+  });
   if (isSubscribed) {
-    await Subscription.deleteOne({ channel: channelId });
-    return res.status(200).send({ message: "channel has been unsubscribed" });
+    await Subscription.findByIdAndDelete(isSubscribed?._id);
+    return res
+      .status(200)
+      .send({ message: `channel has been unsubscribed ${channelId}` });
   }
 
   // if not subscribed then subscribe

@@ -1,5 +1,5 @@
+console.log("first");
 
-let button= document.getElementById("press");
-button.addEventListener("click",(e)=>{
-console.log(e.ctrlKey);
-})
+import { myName } from "./script.js";
+
+console.log(myName) 

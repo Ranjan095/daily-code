@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #container {
+        border-collapse: collapse;
+        width: 800px;
+        /* text-align: center; */
+      }
+      .border {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Table</h1>
+    <table class="border" id="container">
+      <thead>
+        <tr class="border">
+          <th class="border" rowspan="2" colspan="2">Name</th>
+          <th class="border" colspan="2">Documents</th>
+        </tr>
+        <tr class="border">
+          <th class="border">Document Name</th>
+          <th class="border">Document Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border" rowspan="3">Jill</td>
+          <td class="border" rowspan="3">Smith</td>
+          <td class="border">doc1</td>
+          <td class="border">text</td>
+        </tr>
+        <tr>
+          <td class="border">doc2</td>
+          <td class="border">excel</td>
+        </tr>
+        <tr>
+          <td class="border">doc3</td>
+          <td class="border">Word</td>
+        </tr>
+
+        <tr>
+          <td class="border" rowspan="2">Eve</td>
+          <td class="border" rowspan="2">Jackson</td>
+          <td class="border">docA</td>
+          <td class="border">text</td>
+        </tr>
+        <tr>
+          <td class="border">docB</td>
+          <td class="border">text</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

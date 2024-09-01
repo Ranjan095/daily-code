@@ -1,0 +1,112 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f8f8;
+    font-family: 'Arial', sans-serif;
+}
+
+.certificate {
+    width: 900px;
+    padding: 20px;
+    border: 10px solid #1a1a1a;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.date-id {
+    text-align: right;
+}
+
+.date-id p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.date-id span {
+    font-weight: bold;
+}
+
+.title {
+    text-align: center;
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 50px;
+    letter-spacing: 5px;
+    color: #1a1a1a;
+}
+
+.title h2 {
+    margin: 0;
+    font-size: 24px;
+    letter-spacing: 3px;
+    color: #e71b1b;
+}
+
+.recipient {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.recipient p {
+    font-size: 18px;
+    color: #666;
+}
+
+.recipient h2 {
+    margin: 10px 0 0 0;
+    font-size: 32px;
+    color: #1a1a1a;
+}
+
+.body {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.signatures {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.signature {
+    text-align: center;
+}
+
+.signature p {
+    margin: 0;
+}
+
+.signature p:nth-child(1) {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.signature p:nth-child(2) {
+    font-size: 14px;
+    color: #666;
+}
+
+.seal img {
+    height: 100px;
+}

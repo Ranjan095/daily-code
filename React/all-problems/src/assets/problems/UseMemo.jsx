@@ -4,24 +4,21 @@ const UseMemo = () => {
   let [counter1, setCounter1] = useState(0);
   let [counter2, setCounter2] = useState(0);
 
-  let expenciveCounter = useMemo(() => {
-    expenciveCalculation(counter2);
+  useMemo(() => {
+    (function expenciveTask() {
+      for (let i = 0; i < 2000000000; i++) {
+        continue;
+      }
+    })();
   }, [counter2]);
 
   let handleCounter1 = () => {
-    setCounter1(++counter1);
+    setCounter1((prev) => prev + 1);
   };
 
   let handleCounter2 = () => {
-    setCounter2(++counter2);
+    setCounter2((prev) => prev + 1);
   };
-
-  function expenciveCalculation(counter2) {
-    while (counter2 <= 1000000000) {
-      ++counter2;
-    }
-    return counter2;
-  }
 
   return (
     <div className=" m-4 text-center">
